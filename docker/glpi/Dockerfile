@@ -34,6 +34,8 @@ RUN mkdir -p /var/www/html/files /var/www/html/config \
 
 RUN a2enmod rewrite
 
+RUN printf 'RewriteEngine On\nRewriteCond %%{REQUEST_FILENAME} !-f\nRewriteRule ^(.*)$ index.php [QSA,L]\n' > /var/www/html/public/.htaccess
+
 COPY glpi-apache.conf /etc/apache2/sites-available/000-default.conf
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
